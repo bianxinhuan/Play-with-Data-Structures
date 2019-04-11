@@ -1,3 +1,5 @@
+package ArrayBasics;
+
 /**
  * 第2.1节，使用Java中的数组
  *

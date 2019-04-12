@@ -1,4 +1,4 @@
-package CreateOurOwnArray;
+package src;
 
 /**
  * -

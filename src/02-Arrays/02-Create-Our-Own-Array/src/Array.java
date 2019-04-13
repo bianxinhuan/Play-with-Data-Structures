@@ -47,7 +47,7 @@ public class Array {
     }
 
     /**
-     * 支架数组是否为空
+     * 判断数组是否为空
      *
      * @return
      */

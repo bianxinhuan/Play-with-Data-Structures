@@ -55,24 +55,6 @@ public class Array<E> {
     }
 
     /**
-     * 向所有元素后添加一个新元素
-     *
-     * @param e
-     */
-    public void addFirst(E e) {
-        add(0, e);
-    }
-
-    /**
-     * 在所有元素前添加一个新元素
-     *
-     * @param e
-     */
-    public void addLast(E e) {
-        add(size, e);
-    }
-
-    /**
      * 在index索引的位置插入一个新元素e
      *
      * @param index
@@ -95,6 +77,24 @@ public class Array<E> {
         data[index] = e;
 
         size++;
+    }
+
+    /**
+     * 向所有元素后添加一个新元素
+     *
+     * @param e
+     */
+    public void addFirst(E e) {
+        add(0, e);
+    }
+
+    /**
+     * 在所有元素前添加一个新元素
+     *
+     * @param e
+     */
+    public void addLast(E e) {
+        add(size, e);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Array<E> {
      */
     public boolean contains(E e) {
         for (int i = 0; i < size; i++) {
-            if (data[i] == e) {
+            if (data[i].equals(e)) {
                 return true;
             }
         }
@@ -148,7 +148,7 @@ public class Array<E> {
      */
     public int find(E e) {
         for (int i = 0; i < size; i++) {
-            if (data[i] == e) {
+            if (data[i].equals(e)) {
                 return i;
             }
         }

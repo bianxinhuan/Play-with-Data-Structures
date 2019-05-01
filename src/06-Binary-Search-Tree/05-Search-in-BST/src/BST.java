@@ -2,18 +2,18 @@
  * -
  *
  * @author bianxinhuan
- * @date 2019-04-30 22:13:24
+ * @date 2019-05-01 22:36:39
  */
 public class BST<E extends Comparable<E>> {
 
     private class Node {
-        private E e;
-        Node left, right;
+        public E e;
+        public Node left, right;
 
         public Node(E e) {
             this.e = e;
-            left = null;
-            right = null;
+            this.left = null;
+            this.right = null;
         }
     }
 
@@ -48,12 +48,12 @@ public class BST<E extends Comparable<E>> {
      *
      * @param node
      * @param e
+     * @return
      */
     private Node add(Node node, E e) {
 
         if (node == null) {
-            size++;
-            node = new Node(e);
+            return new Node(e);
         }
 
         if (e.compareTo(node.e) < 0) {
@@ -63,5 +63,37 @@ public class BST<E extends Comparable<E>> {
         }
 
         return node;
+    }
+
+    /**
+     * 看二分搜索树中是否包含元素e
+     *
+     * @param e
+     * @return
+     */
+    public boolean contains(E e) {
+        return contains(root, e);
+    }
+
+    /**
+     * 看以node为根的二分搜索树中是否包含元素e, 递归算法
+     *
+     * @param node
+     * @param e
+     * @return
+     */
+    private boolean contains(Node node, E e) {
+
+        if (node == null) {
+            return false;
+        }
+
+        if (e.compareTo(node.e) == 0) {
+            return true;
+        } else if (e.compareTo(node.e) < 0) {
+            return contains(node.left, e);
+        } else { // e.compareTo(node.e) > 0
+            return contains(node.right, e);
+        }
     }
 }

@@ -55,6 +55,7 @@ public class BST<E extends Comparable<E>> {
     private Node add(Node node, E e) {
 
         if (node == null) {
+            size ++;
             return new Node(e);
         }
 

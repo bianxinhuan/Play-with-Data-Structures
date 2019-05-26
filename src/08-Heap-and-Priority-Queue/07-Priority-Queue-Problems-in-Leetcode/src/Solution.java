@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
@@ -10,7 +9,6 @@ import java.util.TreeMap;
  * @author bianxinhuan
  * @date 2019-05-26 14:48:06
  */
-
 public class Solution {
 
     private class Array<E> {

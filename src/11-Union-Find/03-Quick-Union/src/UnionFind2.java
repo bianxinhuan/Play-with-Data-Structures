@@ -77,6 +77,6 @@ public class UnionFind2 implements UF {
             return;
         }
 
-        parent[pRoot] = pRoot;
+        parent[pRoot] = qRoot;
     }
 }

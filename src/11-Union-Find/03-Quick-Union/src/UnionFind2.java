@@ -77,6 +77,7 @@ public class UnionFind2 implements UF {
             return;
         }
 
+        // 将两个元素的父节点设置为同一个
         parent[pRoot] = qRoot;
     }
 }

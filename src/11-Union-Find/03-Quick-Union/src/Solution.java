@@ -1,13 +1,15 @@
+import apple.laf.JRSUIUtils;
+
 import java.util.TreeSet;
 
 /**
  * Leetcode 547. Friend Circles 朋友圈
- * https://leetcode.com/problems/friend-circles/description/
+ * https://leetcode.com/problems/friend-circles/description
  * 课程中在这里暂时没有介绍这个问题
  * 该代码主要用于使用Leetcode上的问题测试我们的UF类
  *
  * @author bianxinhuan
- * @date 2019-06-06 20:53:32
+ * @date 2019-06-08 10:35:00
  */
 public class Solution {
 
@@ -20,40 +22,47 @@ public class Solution {
         void unionElements(int p, int q);
     }
 
-    private class UnionFind1 implements UF {
+    private class UnionFind2 implements UF {
 
         /**
-         * 我们的第一版Union-Find本质就是一个数组
+         * 我们的第二版Union-Find, 使用一个数组构建一棵指向父节点的树
+         * parent[i]表示第一个元素所指向的父节点
          */
-        private int[] id;
+        private int[] parent;
 
-        public UnionFind1(int size) {
+        public UnionFind2(int size) {
 
-            this.id = new int[size];
+            this.parent = new int[size];
 
+            // 初始化, 每一个parent[i]指向自己, 表示每一个元素自己自成一个集合
             for (int i = 0; i < size; i++) {
-                id[i] = i;
+                parent[i] = i;
             }
         }
 
         @Override
         public int getSize() {
-            return id.length;
+            return parent.length;
         }
 
         /**
          * 查找元素p所对应的集合编号
-         * O(1)复杂度
+         * O(1)复杂度，h为树的高度
          *
          * @param p
          * @return
          */
-        private int find(int p) {
-            if (p < 0 || p >= id.length) {
+        public int find(int p) {
+            if (p < 0 || p >= parent.length) {
                 throw new IllegalArgumentException("p is out of bound.");
             }
 
-            return id[p];
+            // 不断去查询自己的父亲节点，直到达达根节点
+            // 根节点的特点：parent[p] == p
+            while (p != parent[p]) {
+                p = parent[p];
+            }
+            return p;
         }
 
         /**
@@ -71,7 +80,7 @@ public class Solution {
 
         /**
          * 合并元素p和元素q所属的集合
-         * O(n) 复杂度
+         * O(n) 复杂度，h为树的调试
          *
          * @param p
          * @param q
@@ -79,19 +88,15 @@ public class Solution {
         @Override
         public void unionElements(int p, int q) {
 
-            int pID = find(p);
-            int qID = find(q);
+            int pRoot = find(p);
+            int qRoot = find(q);
 
-            if (pID == qID) {
+            if (pRoot == qRoot) {
                 return;
             }
 
-            // 合并过程需要遍历一遍所有元素, 将两个元素的所属集合编号合并
-            for (int i = 0; i < id.length; i++) {
-                if (id[i] == pID) {
-                    id[i] = qID;
-                }
-            }
+            // 将两个元素的父节点设置为同一个
+            parent[pRoot] = qRoot;
         }
     }
 
@@ -99,12 +104,12 @@ public class Solution {
 
         int n = M.length;
 
-        UnionFind1 uf = new UnionFind1(n);
+        UnionFind2 uf = new UnionFind2(n);
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (M[i][j] == 1) {
-                    uf.unionElements(i, j);
+                    uf.unionElements(i,j);
                 }
             }
         }
@@ -113,6 +118,7 @@ public class Solution {
         for (int i = 0; i < n; i++) {
             set.add(uf.find(i));
         }
+
         return set.size();
     }
 }

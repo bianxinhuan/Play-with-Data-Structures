@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Pride and Prejudice");
 
         ArrayList<String> words = new ArrayList<>();
-        if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
+        if (FileOperation.readFile("src/12-AVL-Tree/02-Calculation-Balance-Factor/pride-and-prejudice.txt", words)) {
 
             long startTime = System.nanoTime();
 

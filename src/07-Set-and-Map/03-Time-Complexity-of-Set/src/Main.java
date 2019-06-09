@@ -31,7 +31,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String filename = "pride-and-prejudice.txt";
+        String filename = "src/12-AVL-Tree/02-Calculation-Balance-Factor/pride-and-prejudice.txt";
 
         BSTSet<String> bstSet = new BSTSet<>();
         double time1 = testSet(bstSet, filename);

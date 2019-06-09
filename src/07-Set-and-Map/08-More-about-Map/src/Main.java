@@ -41,7 +41,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String filename = "pride-and-prejudice.txt";
+        String filename = "src/12-AVL-Tree/02-Calculation-Balance-Factor/pride-and-prejudice.txt";
 
         BSTMap<String, Integer> bstMap = new BSTMap<>();
         double time1 = testMap(bstMap, filename);

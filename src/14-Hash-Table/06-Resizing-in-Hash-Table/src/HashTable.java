@@ -8,6 +8,19 @@ import java.util.TreeMap;
  */
 public class HashTable<K, V> {
 
+    /**
+     * 哈希冲突的元素的上界 tolerance
+     */
+    private static final int upperTol = 10;
+    /**
+     * 哈希冲突的元素的下界 tolerance
+     */
+    private static final int lowerTol = 2;
+    /**
+     * 初始容量
+     */
+    private static final int initCapacity = 7;
+
     private TreeMap<K, V>[] hashtable;
     private int size;
     /**
@@ -46,6 +59,11 @@ public class HashTable<K, V> {
         } else {
             map.put(key, value);
             size++;
+
+            // 判断平均容量是否超出了设置的上界，等同：size / M >= upperTol
+            if (size >= upperTol * M) {
+                resize(2 * M);
+            }
         }
     }
 
@@ -55,6 +73,11 @@ public class HashTable<K, V> {
         if (map.containsKey(key)) {
             ret = map.remove(key);
             size--;
+
+            // 判断平均容量是否超出了设置的下界，等同：size / M < lowerTol
+            if (size < lowerTol * M && M / 2 >= initCapacity) {
+                resize(M / 2);
+            }
         }
         return ret;
     }
@@ -74,5 +97,23 @@ public class HashTable<K, V> {
 
     public V get(K key) {
         return hashtable[hash(key)].get(key);
+    }
+
+    private void resize(int newM) {
+        TreeMap<K, V>[] newHashTable = new TreeMap[newM];
+        for (int i = 0; i < newM; i++) {
+            newHashTable[i] = hashtable[i];
+        }
+
+        int oldM = M;
+        this.M = newM;
+        for (int i = 0; i < oldM; i++) {
+            TreeMap<K, V> map = hashtable[i];
+            for (K key : map.keySet()) {
+                newHashTable[hash(key)].put(key, map.get(key));
+            }
+        }
+
+        this.hashtable = newHashTable;
     }
 }

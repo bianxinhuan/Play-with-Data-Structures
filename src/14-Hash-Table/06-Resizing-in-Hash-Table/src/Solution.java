@@ -45,7 +45,7 @@ public class Solution {
         }
 
         public HashTable() {
-            this(97);
+            this(initCapacity);
         }
 
         private int hash(K key) {
@@ -108,7 +108,7 @@ public class Solution {
         private void resize(int newM) {
             TreeMap<K, V>[] newHashTable = new TreeMap[newM];
             for (int i = 0; i < newM; i++) {
-                newHashTable[i] = hashtable[i];
+                newHashTable[i] = new TreeMap<>();
             }
 
             int oldM = M;
